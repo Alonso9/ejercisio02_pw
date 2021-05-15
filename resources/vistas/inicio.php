@@ -6,10 +6,20 @@
 
 ?>
 
-	<div class="app">
-		<h1>Yessss</h1>
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-6">
+			<div class="content" id="content">
+				
+			</div>
+		</div>
+		<div class="col">
+			<div class="list-group mt-5" id="usuarios">
+				 
+			</div>
+		</div>
 	</div>
-
+<script src="../js/app.js"></script>
 <?php
 	foot();
 ?>	

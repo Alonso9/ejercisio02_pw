@@ -61,6 +61,7 @@ function head(){
 function foot(){
 ?>
 	<script src="../js/bootstrap.bundle.min.js"></script>	
+	<script src="../js/jquery.min.js"></script>	
     </div>
   </body>
 </html>

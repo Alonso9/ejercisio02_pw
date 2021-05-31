@@ -2,16 +2,25 @@ const app = {
 	urlPost : "https://jsonplaceholder.typicode.com/posts",
 	urlComent : "https://jsonplaceholder.typicode.com/comments",
 	urlUser : "https://jsonplaceholder.typicode.com/users",
+	userId : "",
+	palabraClave : "",
 
 	cargarPost(){
 		const cont = document.querySelector("#content");
 		cont.style.width = "100%";
 		cont.classList.add(['mx-auto'],['mt-5']);  //Clases entre []
 		let html = "";
+		this.urlPost = "https://jsonplaceholder.typicode.com/posts"
+		if(this.userId !== ""){
+			this.urlPost += "?userId=" + this.userId;
+			console.log(this.urlPost);
+		}
+
 		fetch(this.urlPost)
 			.then(response => response.json())
 			.then(posts => {
 				for(let post of posts){
+					if(post.body.indexOf(this.palabraClave) !== -1){
 					html += `
 						<div class="card mb-3">
 						  <div class="card-body">
@@ -40,7 +49,7 @@ const app = {
 						  </div>
 						</div>
 					`;
-				}
+				}}
 				cont.innerHTML = html;
 			}).catch(error => console.log(error));
 	}, //Rcuerda poner comas en el objeto 
@@ -83,7 +92,7 @@ const app = {
 					html += `
 						<button type="button" class="list-group-item list-group-item-action"
 						 id="up${ u.id }"
-						 onclick="app.userPosts${ u.id }"
+						 onclick="app.userPosts(${ u.id })"
 						>
 					    	${ u.name }<br><small>${ u.email }</small>
    					    </button>
@@ -91,10 +100,28 @@ const app = {
 				}
 				user.html(html); //Cargamos el contenido en users
 			}).catch(error => console.log(error))
+	},
+	userPosts(uid){
+		$("#up" + this.userId).removeClass("active");
+		this.userId = uid;
+		console.log(uid); //Verificamos si llega el userId
+		$("#up" + uid).addClass("active");
+		this.cargarPost();
+	},
+	buscarPalabra(){
+		$("#up" + this.userId).removeClass("active");
+		this.userId = "";
+		this.palabraClave = $("#buscar-palabra").val();
+		console.log(this.palabraClave);
+		this.cargarPost()
 	}
 }
 
 window.onload = function(){
 	app.cargarPost();
 	app.cargarUsuario();
-}
+} 
+
+/*
+* Se completo la calse XV sigue la XVI
+*/																																																																																				
